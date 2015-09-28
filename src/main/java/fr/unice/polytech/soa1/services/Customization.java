@@ -7,7 +7,10 @@ import org.json.JSONArray;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.awt.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Collection;
 
 /**
@@ -17,7 +20,7 @@ import java.util.Collection;
 @Produces(MediaType.APPLICATION_JSON)
 public class Customization {
 
-    @POST
+    /*@POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createBulb(String name, Color color){
         if(Storage.read(name) != null) {
@@ -27,6 +30,21 @@ public class Customization {
         }
         Storage.create(name, color);
         return Response.ok().build();
+    }*/
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response createBulb(InputStream input) {
+        Bulb b = new Bulb();
+        try{
+            BufferedReader in = new BufferedReader(new InputStreamReader(input));
+            String line;
+            line = in.readLine();
+            return Response.ok().entity(line).build();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        return Response.status(Response.Status.NOT_IMPLEMENTED).build();
     }
 
     @GET

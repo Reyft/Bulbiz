@@ -11,9 +11,14 @@ public class Bulb {
     private Form form;
     private int nb = 0;
 
-    public Bulb(String name, Color color) {
+    public Bulb(String name, Color color, Form form) {
         this.name = name;
         this.color = color;
+        this.form = Form.ROUND;
+    }
+
+    public Bulb(){
+        super();
     }
 
     public String getName() {
