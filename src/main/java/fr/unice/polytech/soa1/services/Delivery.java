@@ -10,4 +10,7 @@ import javax.ws.rs.core.MediaType;
 @Path("/delivery")
 @Produces(MediaType.APPLICATION_JSON)
 public class Delivery {
+    public void addADestination(){}
+
+    public void followDelivery(){}
 }

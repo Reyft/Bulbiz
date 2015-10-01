@@ -1,6 +1,6 @@
 package fr.unice.polytech.soa1.domain;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.*;
 import java.util.List;
 

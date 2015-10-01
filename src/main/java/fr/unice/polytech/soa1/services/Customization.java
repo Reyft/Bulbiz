@@ -47,7 +47,7 @@ public class Customization {
         return Response.status(Response.Status.NOT_IMPLEMENTED).build();
     }
 
-    @GET
+    /*@GET
     public Response getMyBubl(){
         Collection<Bulb> coll = Storage.findAll();
         JSONArray result = new JSONArray();
@@ -55,9 +55,9 @@ public class Customization {
             result.put(b);
         }
         return Response.ok().entity(result.toString()).build();
-    }
+    }*/
 
-    @Path("/search/{name}")
+    /*@Path("/search/{name}")
     @GET
     public Response searchBulb(@PathParam("name") String name){
         if (Storage.read(name) == null){
@@ -65,5 +65,5 @@ public class Customization {
         }
         String value = Storage.read(name).run();
         return Response.ok().entity("\""+value+"\"").build();
-    }
+    }*/
 }

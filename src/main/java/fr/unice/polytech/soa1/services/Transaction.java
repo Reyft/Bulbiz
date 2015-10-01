@@ -10,4 +10,9 @@ import javax.ws.rs.core.MediaType;
 @Path("/transaction")
 @Produces(MediaType.APPLICATION_JSON)
 public class Transaction {
+    private double getPrice(){
+        return 0.0;
+    }
+
+    private void pay(){}
 }
