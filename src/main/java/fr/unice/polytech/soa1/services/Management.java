@@ -5,9 +5,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 /**
- * Created by remy on 21/09/15.
+ * Created by remy on 01/10/15.
  */
-@Path("/delivery")
+@Path("/management")
 @Produces(MediaType.APPLICATION_JSON)
-public class Delivery {
+public class Management {
 }
