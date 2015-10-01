@@ -1,33 +1,39 @@
 package fr.unice.polytech.soa1.domain;
 
 import java.awt.*;
-import java.util.Collection;
-import java.util.HashMap;
+import java.util.*;
+import java.util.List;
 
 /**
  * Created by remy on 27/09/15.
  */
 public class Storage {
     // this mocks a database.
-    private static HashMap<String, Bulb> contents = new HashMap<String, Bulb>();
+    private static Map<User, List<Bulb>> contents = new HashMap();
 
-    public static void create(String name, Color color) {
-        contents.put(name, new Bulb(name, color));
+    public static void create(User user, Color color, Form form) {
+        Bulb b = new Bulb(color, form);
+        if (contents.get(user) == null){
+            contents.put(user, new ArrayList<Bulb>());
+            contents.get(user).add(b);
+        } else {
+            contents.get(user).add(b);
+        }
     }
 
-    public static Bulb read(String name) {
-        return contents.get(name);
+    public static List<Bulb> read(User user) {
+        return contents.get(user);
     }
 
-    public static void delete(String name) {
-        contents.remove(name);
+    public static void delete(User user) {
+        contents.remove(user);
     }
 
-    public static Collection<Bulb> findAll() {
+    public static Collection<List<Bulb>> findAll() {
         return contents.values();
     }
 
     static {
-        Storage.create("demobulb", Color.YELLOW);
+        Storage.create(new User(), Color.YELLOW, Form.OVAL);
     }
 }
