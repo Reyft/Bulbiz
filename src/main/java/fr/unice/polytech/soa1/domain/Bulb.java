@@ -1,7 +1,5 @@
 package fr.unice.polytech.soa1.domain;
 
-import java.awt.*;
-
 /**
  * Created by remy on 21/09/15.
  */
@@ -13,7 +11,7 @@ public class Bulb {
     public Bulb(Color color, Form form) {
         this.color = color;
         this.form = Form.ROUND;
-        
+
     }
 
     public Bulb(){

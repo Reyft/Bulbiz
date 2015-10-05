@@ -1,13 +1,14 @@
 package fr.unice.polytech.soa1.domain;
 
-public enum Form {
-    ROUND (3),
-    TRIANGLE (5),
-    OVAL (4);
+/**
+ * Created by remy on 05/10/15.
+ */
+public enum Color {
+    WHITE(1), YELLOW(2), RED(3), BLUE(4), GREEN(5), PURPLE(6);
 
     private int price = 0;
 
-    Form(int price){
+    Color(int price){
         this.price = price;
     }
 
