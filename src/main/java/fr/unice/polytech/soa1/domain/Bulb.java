@@ -14,6 +14,20 @@ public class Bulb {
         price = color.getPrice() + form.getPrice();
     }
 
+    private Bulb (String color, String form){
+        String c = color.toUpperCase();
+        String f = form.toUpperCase();
+        Color col = null;
+        Form fo = null;
+        try{
+            col = Color.valueOf(c);
+            fo = Form.valueOf(f);
+        } catch (Exception e){}
+        if (col != null && fo != null){
+            new Bulb(col, fo);
+        }
+    }
+
     public Bulb(){
         super();
     }

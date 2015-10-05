@@ -1,6 +1,7 @@
 package fr.unice.polytech.soa1.services;
 
 import fr.unice.polytech.soa1.domain.Bulb;
+import fr.unice.polytech.soa1.domain.Order;
 import fr.unice.polytech.soa1.domain.Storage;
 import org.json.JSONArray;
 
@@ -13,12 +14,28 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Collection;
 
-/**
- * Created by remy on 21/09/15.
- */
-@Path("/custom")
+
 @Produces(MediaType.APPLICATION_JSON)
-public class Customization {
+public class Orders {
+
+    @Path("/create/{id}/")
+    @POST
+    public Response createRetailer(@QueryParam("form")    String form,
+                                   @QueryParam("color")   String color,
+                                   @QueryParam("quantity")   String qte,
+                                   @PathParam("id")       String clientId) {
+
+        int orderId = Storage.getOrderInProgress(Integer.parseInt(clientId));
+        if(orderId == -2) {
+            return Response.status(Response.Status.CONFLICT)
+                    .entity("\"Wrong Client ID\"")
+                    .build();
+        } else if (orderId == -1){
+            Order o = new Order(new Bulb(color,form),Integer.parseInt(qte));
+        }
+        Storage.create(name, color);
+        return Response.ok().build();
+    }
 
     /*@POST
     @Consumes(MediaType.APPLICATION_JSON)
