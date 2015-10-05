@@ -121,6 +121,35 @@ public class Storage {
         }
     }
 
+    /**
+     *  userId + Bulb + number -> mise a jour
+     *
+     */
+    public static boolean addBulbToOrder(int userId, Bulb b, int nb){
+        Set cles = orders.keySet();
+        Iterator it = cles.iterator();
+        while (it.hasNext()){
+            User u = (User)it.next();
+            if (u.getId() == userId){
+                Order order = orders.get(u).peek();
+                Map<Bulb, Integer> col = new HashMap<Bulb, Integer>();
+                Set cle = col.keySet();
+                Iterator it2 = cle.iterator();
+                while(it2.hasNext()){
+                    Bulb bulb = (Bulb) it2.next();
+                    if (bulb.equals(b)){
+                        col.put(bulb, col.get(bulb) + nb);
+                    } else {
+                        col.put(bulb, nb);
+                    }
+                    return true;
+                }
+            }
+            break;
+        }
+        return false;
+    }
+
     private static Bulb toBulb(String color, String form){
         String c = color.toUpperCase();
         String f = form.toUpperCase();
