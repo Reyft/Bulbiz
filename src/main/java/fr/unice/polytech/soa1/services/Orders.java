@@ -18,7 +18,7 @@ import java.util.Collection;
 @Produces(MediaType.APPLICATION_JSON)
 public class Orders {
 
-    @Path("/create/{id}/")
+    @Path("/addToOrder/{id}/")
     @POST
     public Response createRetailer(@QueryParam("form")    String form,
                                    @QueryParam("color")   String color,
@@ -32,8 +32,10 @@ public class Orders {
                     .build();
         } else if (orderId == -1){
             Order o = new Order(new Bulb(color,form),Integer.parseInt(qte));
+            Storage.addAnOrder(Integer.parseInt(clientId), o);
+        } else {
+            Storage.addBulbToOrder(Integer.parseInt(clientId), new Bulb(color,form), Integer.parseInt(qte))
         }
-        Storage.create(name, color);
         return Response.ok().build();
     }
 
