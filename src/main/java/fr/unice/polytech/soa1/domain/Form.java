@@ -1,8 +1,17 @@
 package fr.unice.polytech.soa1.domain;
 
-/**
- * Created by remy on 28/09/15.
- */
 public enum Form {
-    ROUND, TRIANGLE, OVAL
+    ROUND ("3"),
+    TRIANGLE ("5"),
+    OVAL ("4");
+
+    private String price = "";
+
+    Form(String price){
+        this.price = price;
+    }
+
+    public String getPrice(){
+        return price;
+    }
 }
