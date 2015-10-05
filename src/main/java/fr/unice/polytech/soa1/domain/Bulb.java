@@ -14,7 +14,7 @@ public class Bulb {
         price = color.getPrice() + form.getPrice();
     }
 
-    private Bulb (String color, String form){
+    public Bulb(String color, String form){
         String c = color.toUpperCase();
         String f = form.toUpperCase();
         Color col = null;
