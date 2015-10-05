@@ -99,7 +99,7 @@ public class Storage {
      * param (int userId, Order o)
      *
      */
-    private static boolean addAnOrder(int userId, Order o){
+    public static boolean addAnOrder(int userId, Order o){
         User user = null;
         for (User u : users){
             if (u.getId() == userId){
