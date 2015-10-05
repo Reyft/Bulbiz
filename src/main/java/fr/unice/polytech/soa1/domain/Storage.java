@@ -9,29 +9,28 @@ import java.util.List;
  */
 public class Storage {
     // this mocks a database.
-    private static Map<User, List<Bulb>> contents = new HashMap();
+    private static List<User> users = new ArrayList();
     private static Map<Bulb, Integer> stock = new HashMap();
+    private static Map<User, List<Order>> orders = new HashMap();
 
     public static void create(User user, Color color, Form form) {
-        Bulb b = new Bulb(color, form);
-        if (contents.get(user) == null){
-            contents.put(user, new ArrayList<Bulb>());
-            contents.get(user).add(b);
-        } else {
-            contents.get(user).add(b);
+
+    }
+
+    public static void addUser(User u){
+        if (!users.contains(u)) {
+            users.add(u);
         }
     }
 
-    public static List<Bulb> read(User user) {
-        return contents.get(user);
+    public static void editUser(User u, String name){
+        if (users.contains(u)){
+            users.get(users.indexOf(u)).setName(name);
+        }
     }
 
-    public static void delete(User user) {
-        contents.remove(user);
-    }
-
-    public static Collection<List<Bulb>> findAll() {
-        return contents.values();
+    public static void delUser(User u){
+        users.remove(u);
     }
 
     public static void addInStock(Bulb b, int number){
@@ -47,6 +46,10 @@ public class Storage {
             return stock.get(b);
         }
         return 0;
+    }
+
+    public static void createOrder(User u){
+
     }
 
     static {

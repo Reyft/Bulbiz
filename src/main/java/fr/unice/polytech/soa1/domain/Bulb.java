@@ -8,13 +8,12 @@ import java.awt.*;
 public class Bulb {
     private Color color;
     private Form form;
-    private int nb = 0;
     private int price;
 
     public Bulb(Color color, Form form) {
         this.color = color;
         this.form = Form.ROUND;
-
+        
     }
 
     public Bulb(){
@@ -35,6 +34,14 @@ public class Bulb {
 
     public void setForm(Form form) {
         this.form = form;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     @Override

@@ -1,19 +1,23 @@
 package fr.unice.polytech.soa1.domain;
 
-import org.omg.CORBA.*;
-
 import java.lang.Object;
 
 /**
  * Created by remy on 01/10/15.
  */
 public class User {
+    private static int compt = 1;
     private String name;
     private int id;
 
     public User(){
         name = "";
-        id = 0;
+        id = compt++;
+    }
+
+    public User(String s){
+        this();
+        name = s;
     }
 
     public String getName() {
