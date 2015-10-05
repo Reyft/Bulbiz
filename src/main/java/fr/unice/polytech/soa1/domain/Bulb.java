@@ -9,10 +9,12 @@ public class Bulb {
     private Color color;
     private Form form;
     private int nb = 0;
+    private int price;
 
     public Bulb(Color color, Form form) {
         this.color = color;
         this.form = Form.ROUND;
+
     }
 
     public Bulb(){

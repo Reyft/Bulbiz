@@ -10,6 +10,7 @@ import java.util.List;
 public class Storage {
     // this mocks a database.
     private static Map<User, List<Bulb>> contents = new HashMap();
+    private static Map<Bulb, Integer> stock = new HashMap();
 
     public static void create(User user, Color color, Form form) {
         Bulb b = new Bulb(color, form);
@@ -31,6 +32,21 @@ public class Storage {
 
     public static Collection<List<Bulb>> findAll() {
         return contents.values();
+    }
+
+    public static void addInStock(Bulb b, int number){
+        if (stock.containsKey(b)){
+            stock.put(b, stock.get(b)+number);
+        } else {
+            stock.put(b, number);
+        }
+    }
+
+    public static int checkQuantity(Bulb b){
+        if (stock.containsKey(b)){
+            return stock.get(b);
+        }
+        return 0;
     }
 
     static {
