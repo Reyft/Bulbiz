@@ -11,7 +11,7 @@ public class Bulb {
     public Bulb(Color color, Form form) {
         this.color = color;
         this.form = Form.ROUND;
-
+        price = color.getPrice() + form.getPrice();
     }
 
     public Bulb(){

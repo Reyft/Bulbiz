@@ -15,13 +15,14 @@ public class Order {
     private Map<Bulb, Integer> list = new HashMap();
     private double price;
     private String address;
-    private boolean status;
-    private String ExpeditionFollow;
+    private boolean billingStatus;
+    private String manufacturingState;
+    private String deliveryState;
 
     public Order(){
         id = compt++;
         price = 0;
-        status = false;
+        billingStatus = false;
     }
 
     public Order(HashMap<Bulb, Integer> list, String address){
@@ -76,4 +77,32 @@ public class Order {
     public void setAddress(String adress) {
         this.address = adress;
     }
+
+    public boolean isBillingStatus() {
+        return billingStatus;
+    }
+
+    public void setBillingStatus(boolean billingStatus) {
+        this.billingStatus = billingStatus;
+    }
+
+    public String getManufacturingState() {
+        return manufacturingState;
+    }
+
+    public void setManufacturingState(String manufacturingState) {
+        this.manufacturingState = manufacturingState;
+    }
+
+    public String getDeliveryState() {
+        return deliveryState;
+    }
+
+    public void setDeliveryState(String deliveryState) {
+        this.deliveryState = deliveryState;
+    }
+
+    /**
+     * ajouter UN bulb avec une quantité
+     */
 }
