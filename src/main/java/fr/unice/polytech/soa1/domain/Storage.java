@@ -60,20 +60,66 @@ public class Storage {
             User u = (User)it.next();
             if (u.getId() == userId){
                 Stack<Order> list = orders.get(u);
-                Order last = list.pop();
+                Order last = list.peek();
                 if (!last.isBillingStatus()){
                     return last.getId();
+                } else {
+                    return -1;
                 }
-                break;
             }
         }
-        return -1;
+        return -2;
     }
 
     /**
      *  supprimé la commande en cours
      *  param (id commande)
      */
+    public static int deleteInProgress(int userId){
+        Set cles = orders.keySet();
+        Iterator it = cles.iterator();
+        while (it.hasNext()){
+            User u = (User)it.next();
+            if (u.getId() == userId){
+                Stack<Order> list = orders.get(u);
+                Order last = list.peek();
+                if (!last.isBillingStatus()){
+                   list.pop();
+                    return 0;
+                } else {
+                    return -1;
+                }
+            }
+        }
+        return -2;
+    }
+
+    /**
+     * ajouter une commande -> storage
+     * param (int userId, Order o)
+     *
+     */
+    private static boolean addAnOrder(int userId, Order o){
+        User user = null;
+        for (User u : users){
+            if (u.getId() == userId){
+                user = u;
+            }
+        }
+        if (user == null){
+            return false;
+        } else {
+            Stack<Order> stack = orders.get(user);
+            if (stack == null){
+                stack = new Stack<Order>();
+                stack.push(o);
+                orders.put(user, stack);
+            } else {
+                stack.push(o);
+            }
+            return true;
+        }
+    }
 
     private static Bulb toBulb(String color, String form){
         String c = color.toUpperCase();
