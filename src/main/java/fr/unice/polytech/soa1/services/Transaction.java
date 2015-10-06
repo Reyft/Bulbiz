@@ -14,14 +14,14 @@ import javax.ws.rs.core.Response;
 @Produces(MediaType.APPLICATION_JSON)
 public class Transaction {
 
-    @Path("/price/{userId}/{orderId}")
+    @Path("/{orderId}/price/client/{userId}")
     @GET
     private Response getPrice(){
         // TODO
         return null;
     }
 
-    @Path("/pay/{userId}/{orderId}")
+    @Path("/{orderId}/pay/client/{userId}")
     @POST
     private Response pay(){
         // TODO
