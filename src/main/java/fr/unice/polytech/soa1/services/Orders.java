@@ -42,7 +42,7 @@ public class Orders {
 
     @Path("/order/{id}/")
     @GET
-    public Response createRetailer(@PathParam("id")       String clientId) {
+    public Response getOrder(@PathParam("id")       String clientId) {
 
         Order lastOrder = Storage.getOrderInProgress(Integer.parseInt(clientId));
         if(lastOrder == null) {
@@ -52,6 +52,26 @@ public class Orders {
         }
         return Response.ok().entity(lastOrder.getList().toString()).build();
     }
+
+    @Path("/order/{id}/")
+    @DELETE
+    public Response deleteOrder(@PathParam("id")       String clientId) {
+
+        int orderId = Storage.getStateOrderInProgress(Integer.parseInt(clientId));
+        if(orderId == -2) {
+            return Response.status(Response.Status.CONFLICT)
+                    .entity("\"Wrong Client ID\"")
+                    .build();
+        } else if (orderId == -1){
+            return Response.status(Response.Status.CONFLICT)
+                    .entity("\"No Order in Progress\"")
+                    .build();
+        }
+        Storage.deleteInProgress(Integer.parseInt(clientId));
+        return Response.ok().build();
+    }
+
+
 
     /*@POST
     @Consumes(MediaType.APPLICATION_JSON)
