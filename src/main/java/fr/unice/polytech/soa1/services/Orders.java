@@ -22,12 +22,8 @@ public class Orders {
                                    @QueryParam("quantity")   String qte,
                                    @PathParam("id")       String clientId) {
 
-        int orderId = Storage.getStateOrderInProgress(Integer.parseInt(clientId));
-        if(orderId == -2) {
-            return Response.status(Response.Status.CONFLICT)
-                    .entity("\"Wrong Client ID\"")
-                    .build();
-        } else if (orderId == -1){
+        int orderId = Storage.getIdOrderInProgress(Integer.parseInt(clientId));
+        if(orderId == -1) {
             Order o = new Order(new Bulb(color,form),Integer.parseInt(qte));
             Storage.addAnOrder(Integer.parseInt(clientId), o);
         } else {
@@ -41,7 +37,7 @@ public class Orders {
     public Response getCart(@PathParam("id")       String clientId) {
 
         Order lastOrder = Storage.getOrderInProgress(Integer.parseInt(clientId));
-        int orderId = Storage.getStateOrderInProgress(Integer.parseInt(clientId));
+        int orderId = Storage.getIdOrderInProgress(Integer.parseInt(clientId));
         if(orderId == -2) {
             return Response.status(Response.Status.CONFLICT)
                     .entity("\"Wrong Client ID\"")
@@ -58,7 +54,7 @@ public class Orders {
     @DELETE
     public Response deleteCart(@PathParam("id")       String clientId) {
 
-        int orderId = Storage.getStateOrderInProgress(Integer.parseInt(clientId));
+        int orderId = Storage.getIdOrderInProgress(Integer.parseInt(clientId));
         if(orderId == -2) {
             return Response.status(Response.Status.CONFLICT)
                     .entity("\"Wrong Client ID\"")

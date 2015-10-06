@@ -75,22 +75,16 @@ public class Storage {
      * id user -> id commande impayé / -1 si rien
      *
      */
-    public static int getStateOrderInProgress(int userId){
-        Set cles = orders.keySet();
-        Iterator it = cles.iterator();
-        while (it.hasNext()){
-            User u = (User)it.next();
+    public static int getIdOrderInProgress(int userId){
+        for (User u : orders.keySet()){
             if (u.getId() == userId){
-                Stack<Order> list = orders.get(u);
-                Order last = list.peek();
+                Order last = orders.get(u).peek();
                 if (!last.isBillingStatus()){
                     return last.getId();
-                } else {
-                    return -1;
                 }
             }
         }
-        return -2;
+        return -1;
     }
 
     /**
@@ -217,9 +211,21 @@ public class Storage {
      * @return Order o
      */
     public static Order getOrder(int orderId, int clientId) {
+        for (User u : orders.keySet()){
+            if (u.getId() == clientId){
+                Iterator it = orders.get(u).iterator();
+                while (it.hasNext()){
+                    Order order = (Order) it.next();
+                    if (order.getId() == orderId) {
+                        return order;
+                    }
+                }
+                break;
+            }
+        }
         return null;
     }
-    //TODO Complete the action
+
 
     /**
      * Return list of order for a specific client

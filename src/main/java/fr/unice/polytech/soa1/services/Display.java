@@ -52,4 +52,11 @@ public class Display {
         }
         return Response.ok().entity(answer).build();
     }
+
+    @Path("/orders")
+    @GET
+    public Response getAllOrders(){
+        // TODO retourner le path vers chacune des commandes
+        return null;
+    }
 }
