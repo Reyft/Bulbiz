@@ -87,23 +87,14 @@ public class Storage {
         return -1;
     }
 
-    /**
-     * id user -> id commande impayé / -1 si rien
-     *
-     */
     public static Order getOrderInProgress(int userId){
-        Set cles = orders.keySet();
-        Iterator it = cles.iterator();
-        while (it.hasNext()){
-            User u = (User)it.next();
+        for (User u : orders.keySet()){
             if (u.getId() == userId){
-                Stack<Order> list = orders.get(u);
-                Order last = list.peek();
+                Order last = orders.get(u).peek();
                 if (!last.isBillingStatus()){
                     return last;
-                } else {
-                    break;
                 }
+                break;
             }
         }
         return null;
@@ -180,6 +171,7 @@ public class Storage {
                     } else {
                         col.put(bulb, nb);
                     }
+                    order.processThePrice();
                     return true;
                 }
             }

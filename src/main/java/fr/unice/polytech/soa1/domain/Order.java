@@ -25,18 +25,6 @@ public class Order {
         billingStatus = false;
     }
 
-    public Order(HashMap<Bulb, Integer> list){
-        this();
-        this.list = list;
-        Set cles = list.keySet();
-        Iterator it = cles.iterator();
-        while (it.hasNext()){
-            Bulb cle = (Bulb) it.next();
-            int coef = list.get(cle);
-            price += coef * cle.getPrice();
-        }
-    }
-
     public Order(Bulb b, Integer i){
         this();
         this.list.put(b, i);
@@ -106,6 +94,11 @@ public class Order {
         this.deliveryState = deliveryState;
     }
 
+    public void processThePrice(){
+        for (Bulb b : list.keySet()){
+            this.price += (b.getPrice() * list.get(b));
+        }
+    }
     /**
      * ajouter UN bulb avec une quantité
      */
