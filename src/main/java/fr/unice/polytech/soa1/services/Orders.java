@@ -11,11 +11,11 @@ import javax.ws.rs.core.Response;
 import java.util.Collection;
 import java.util.List;
 
-
+@Path("/cart")
 @Produces(MediaType.APPLICATION_JSON)
 public class Orders {
 
-    @Path("/cart/client/{id}/")
+    @Path("/client/{id}/")
     @POST
     public Response addToCart(@QueryParam("form")    String form,
                                    @QueryParam("color")   String color,
@@ -37,7 +37,7 @@ public class Orders {
         return Response.ok().build();
     }
 
-    @Path("/cart/client/{id}/")
+    @Path("/client/{id}/")
     @GET
     public Response getCart(@PathParam("id")       String clientId) {
 
@@ -55,7 +55,7 @@ public class Orders {
         return Response.ok().entity(lastOrder.getList().toString()).build();
     }
 
-    @Path("/cart/client/{id}/")
+    @Path("/client/{id}/")
     @DELETE
     public Response deleteCart(@PathParam("id")       String clientId) {
 
@@ -73,7 +73,7 @@ public class Orders {
         return Response.ok().build();
     }
 
-    @Path("/order/{orderId}/client/{clientId}/")
+    @Path("/{orderId}/client/{clientId}/")
     @GET
     public Response getSpecificOrder(@PathParam("orderId")       String orderId,
                              @PathParam("clientId")       String clientId) {
