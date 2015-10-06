@@ -28,7 +28,7 @@ public class Client {
     @PUT
     public Response setAccount(@PathParam("id")       String clientId,
                                @QueryParam("name")    String name){
-        Storage.editUser(Integer.parseInt(clientId), new User(name));
+        Storage.editUser(Integer.parseInt(clientId), name);
         return Response.ok().build();
     }
 

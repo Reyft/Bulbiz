@@ -25,19 +25,25 @@ public class Storage {
 
     /**
      *
-     * @param u : identifiant (id) du client
+     * @param userId : identifiant (id) du client
      * @param name
      */
-    public static void editUser(User u, String name){
-        if (users.contains(u)){
-            users.get(users.indexOf(u)).setName(name);
-        }
-        //TODO le parametre u (User) doit être un int (id du client).
+    public static void editUser(int userId, String name){
+       for (User u : users){
+           if (u.getId() == userId){
+               u.setName(name);
+               break;
+           }
+       }
     }
 
-    public static void delUser(User u){
-        users.remove(u);
-        //TODO le parametre u (User) doit être un int (id du client).
+    public static void delUser(int userId){
+        for (User u : users){
+            if (u.getId() == userId){
+                users.remove(u);
+                break;
+            }
+        }
     }
 
     public static void addInStock(Bulb b, int number){
