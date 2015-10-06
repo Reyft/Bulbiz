@@ -1,8 +1,11 @@
 package fr.unice.polytech.soa1.services;
 
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  * Created by remy on 21/09/15.
@@ -10,9 +13,18 @@ import javax.ws.rs.core.MediaType;
 @Path("/transaction")
 @Produces(MediaType.APPLICATION_JSON)
 public class Transaction {
-    private double getPrice(){
-        return 0.0;
+
+    @Path("/price/{userId}/{orderId}")
+    @GET
+    private Response getPrice(){
+        // TODO
+        return null;
     }
 
-    private void pay(){}
+    @Path("/pay/{userId}/{orderId}")
+    @POST
+    private Response pay(){
+        // TODO
+        return null;
+    }
 }
