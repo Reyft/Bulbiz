@@ -8,10 +8,6 @@ import org.json.JSONArray;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.Collection;
 
 
@@ -42,12 +38,17 @@ public class Orders {
 
     @Path("/order/{id}/")
     @GET
-    public Response getOrder(@PathParam("id")       String clientId) {
+    public Response getOrderInProgress(@PathParam("id")       String clientId) {
 
         Order lastOrder = Storage.getOrderInProgress(Integer.parseInt(clientId));
-        if(lastOrder == null) {
+        int orderId = Storage.getStateOrderInProgress(Integer.parseInt(clientId));
+        if(orderId == -2) {
             return Response.status(Response.Status.CONFLICT)
-                    .entity("\"No Order in progress or Wrong Client ID\"")
+                    .entity("\"Wrong Client ID\"")
+                    .build();
+        } else if (orderId == -1){
+            return Response.status(Response.Status.CONFLICT)
+                    .entity("\"No Order in Progress\"")
                     .build();
         }
         return Response.ok().entity(lastOrder.getList().toString()).build();
@@ -71,8 +72,6 @@ public class Orders {
         return Response.ok().build();
     }
 
-
-
     /*@POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createBulb(String name, Color color){
@@ -85,20 +84,6 @@ public class Orders {
         return Response.ok().build();
     }*/
 
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response createBulb(InputStream input) {
-        Bulb b = new Bulb();
-        try{
-            BufferedReader in = new BufferedReader(new InputStreamReader(input));
-            String line;
-            line = in.readLine();
-            return Response.ok().entity(line).build();
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-        return Response.status(Response.Status.NOT_IMPLEMENTED).build();
-    }
 
     /*@GET
     public Response getMyBubl(){
