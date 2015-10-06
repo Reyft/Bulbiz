@@ -3,13 +3,10 @@ package fr.unice.polytech.soa1.services;
 import fr.unice.polytech.soa1.domain.Bulb;
 import fr.unice.polytech.soa1.domain.Order;
 import fr.unice.polytech.soa1.domain.Storage;
-import org.json.JSONArray;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.Collection;
-import java.util.List;
 
 @Path("/cart")
 @Produces(MediaType.APPLICATION_JSON)

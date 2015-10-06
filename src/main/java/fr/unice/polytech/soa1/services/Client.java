@@ -57,13 +57,14 @@ public class Client {
     public Response getOrders(@PathParam("clientId")       String clientId) {
 
         List<Order> orders = Storage.getListOrder(Integer.parseInt(clientId));
-        String result = "";
+        String result = "{";
         for(Order o : orders) {
             result+= "[idOrder : " +o.getId()+", addressOrder :";
             result += o.getAddress() + ", More Details : /orders/"+o.getId()+"/client/"+clientId+"/ ],";
         }
+        result+= "}";
         if (result.equals("")){
-            result = "[]";
+            result = "{}";
         }
         return Response.ok().entity(result).build();
     }

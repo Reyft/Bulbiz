@@ -63,8 +63,8 @@ public class Storage {
         }
     }
 
-    public static int checkQuantity(String color, String form){
-        Bulb b = toBulb(color, form);
+    public static int checkQuantity(Color color, Form form){
+        Bulb b = new Bulb(color, form);
         if (stock.containsKey(b)){
             return stock.get(b);
         }
@@ -191,8 +191,8 @@ public class Storage {
     private static Bulb toBulb(String color, String form){
         String c = color.toUpperCase();
         String f = form.toUpperCase();
-        Color col = null;
-        Form fo = null;
+        Color col;
+        Form fo;
         try{
             col = Color.valueOf(c);
             fo = Form.valueOf(f);
