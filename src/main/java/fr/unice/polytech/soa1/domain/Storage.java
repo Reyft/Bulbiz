@@ -252,4 +252,16 @@ public class Storage {
         return null;
         //TODO Complete the action
     }
+
+    public static int getNbOfUsers(){
+        return users.size();
+    }
+
+    public static int getTotalStock(){
+        int sum = 0;
+        for (Bulb b : stock.keySet()){
+            sum += stock.get(b);
+        }
+        return sum;
+    }
 }

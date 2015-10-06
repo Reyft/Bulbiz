@@ -62,6 +62,9 @@ public class Client {
             result+= "[idOrder : " +o.getId()+", addressOrder :";
             result += o.getAddress() + ", More Details : /orders/"+o.getId()+"/client/"+clientId+"/ ],";
         }
+        if (result.equals("")){
+            result = "[]";
+        }
         return Response.ok().entity(result).build();
     }
 }

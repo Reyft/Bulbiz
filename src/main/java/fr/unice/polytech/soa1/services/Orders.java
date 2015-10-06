@@ -28,7 +28,6 @@ public class Orders {
                     .entity("\"Wrong Client ID\"")
                     .build();
         } else if (orderId == -1){
-
             Order o = new Order(new Bulb(color,form),Integer.parseInt(qte));
             Storage.addAnOrder(Integer.parseInt(clientId), o);
         } else {

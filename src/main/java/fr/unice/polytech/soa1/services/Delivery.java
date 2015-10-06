@@ -12,13 +12,15 @@ import javax.ws.rs.core.Response;
  * Created by remy on 21/09/15.
  */
 
+@Path("/delivery")
 @Produces(MediaType.APPLICATION_JSON)
 public class Delivery {
-    @Path("/delivery/{clientId}")
+
+    @Path("/{userId}")
     @POST
-    public Response addADestination(@PathParam("id")        String clientId,
+    public Response addADestination(@PathParam("userId")        String userId,
                                     @QueryParam("address")  String address){
-        int status = Storage.addAddress(Integer.parseInt(clientId), address);
+        int status = Storage.addAddress(Integer.parseInt(userId), address);
         if(status == -2) {
             return Response.status(Response.Status.CONFLICT)
                     .entity("\"Wrong Client ID\"")
@@ -31,7 +33,7 @@ public class Delivery {
         return Response.ok().build();
     }
 
-    @Path("/delivery/{orderId}/client/{clientId}")
+    @Path("/{orderId}/client/{clientId}")
     @GET
     public Response followDelivery(@PathParam("orderId")        String orderId,
                                    @PathParam("clientId")       String clientId){
