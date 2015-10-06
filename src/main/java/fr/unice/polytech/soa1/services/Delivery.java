@@ -16,9 +16,9 @@ import javax.ws.rs.core.Response;
 @Produces(MediaType.APPLICATION_JSON)
 public class Delivery {
 
-    @Path("/{userId}")
+    @Path("/client/{clientId}")
     @POST
-    public Response addADestination(@PathParam("userId")        String userId,
+    public Response addADestination(@PathParam("clientId")        String userId,
                                     @QueryParam("address")  String address){
         int status = Storage.addAddress(Integer.parseInt(userId), address);
         if(status == -2) {
