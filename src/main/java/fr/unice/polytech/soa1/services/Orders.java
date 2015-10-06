@@ -18,14 +18,14 @@ import java.util.Collection;
 @Produces(MediaType.APPLICATION_JSON)
 public class Orders {
 
-    @Path("/addToOrder/{id}/")
+    @Path("/order/{id}/")
     @POST
-    public Response createRetailer(@QueryParam("form")    String form,
+    public Response addToOrder(@QueryParam("form")    String form,
                                    @QueryParam("color")   String color,
                                    @QueryParam("quantity")   String qte,
                                    @PathParam("id")       String clientId) {
 
-        int orderId = Storage.getOrderInProgress(Integer.parseInt(clientId));
+        int orderId = Storage.getStateOrderInProgress(Integer.parseInt(clientId));
         if(orderId == -2) {
             return Response.status(Response.Status.CONFLICT)
                     .entity("\"Wrong Client ID\"")
@@ -38,6 +38,19 @@ public class Orders {
             Storage.addBulbToOrder(Integer.parseInt(clientId), new Bulb(color,form), Integer.parseInt(qte));
         }
         return Response.ok().build();
+    }
+
+    @Path("/order/{id}/")
+    @GET
+    public Response createRetailer(@PathParam("id")       String clientId) {
+
+        Order lastOrder = Storage.getOrderInProgress(Integer.parseInt(clientId));
+        if(lastOrder == null) {
+            return Response.status(Response.Status.CONFLICT)
+                    .entity("\"No Order in progress or Wrong Client ID\"")
+                    .build();
+        }
+        return Response.ok().entity(lastOrder.getList().toString()).build();
     }
 
     /*@POST
