@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.unice.polytech.soa1.domain.Order;
 import fr.unice.polytech.soa1.domain.Storage;
+import fr.unice.polytech.soa1.domain.User;
 
 
 import javax.ws.rs.*;
@@ -56,7 +57,7 @@ public class Display {
     @Path("/orders")
     @GET
     public Response getAllOrders(){
-        // TODO retourner le path vers chacune des commandes
-        return null;
+        String answer = Storage.getAllOrders();
+        return Response.ok().entity(answer).build();
     }
 }

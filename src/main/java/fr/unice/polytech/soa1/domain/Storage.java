@@ -12,11 +12,6 @@ public class Storage {
     private static Map<Bulb, Integer> stock = new HashMap();
     private static Map<User, Stack<Order>> orders = new HashMap();
 
-/*    public static void create(User user, Color color, Form form) {
-
-    }
-*/
-
     public static void addUser(User u){
         if (!users.contains(u)) {
             users.add(u);
@@ -180,22 +175,6 @@ public class Storage {
         return false;
     }
 
-    private static Bulb toBulb(String color, String form){
-        String c = color.toUpperCase();
-        String f = form.toUpperCase();
-        Color col;
-        Form fo;
-        try{
-            col = Color.valueOf(c);
-            fo = Form.valueOf(f);
-        } catch (Exception e){return null;}
-        if (col != null && fo != null){
-            return new Bulb(col, fo);
-        } else {
-            return null;
-        }
-    }
-
     /**
      * Get an ORDER
      * @param orderId : Order Id
@@ -225,8 +204,12 @@ public class Storage {
      * @return a list of order
      */
     public static List<Order> getListOrder(int clientId) {
+        for (User u : orders.keySet()){
+            if (u.getId() == clientId){
+                return orders.get(u);
+            }
+        }
         return null;
-        //TODO Complete the action
     }
 
     /**
@@ -236,8 +219,13 @@ public class Storage {
      * @return 0 if everything is ok, -1 if the order doesn't exists, -2 if the client doesn't exists.
      */
     public static int addAddress(int clientId, String address) {
-        return 0;
-        //TODO Complete the action
+        for (User u : orders.keySet()){
+            if (u.getId() == clientId){
+                orders.get(u).peek().setAddress(address);
+                return 0;
+            }
+        }
+        return -1;
     }
 
     /**
@@ -246,9 +234,14 @@ public class Storage {
      * @param orderId
      * @return
      */
-    public static String getStatus(int clientId, int orderId) {
-        return null;
-        //TODO Complete the action
+    public static String getDeliveryStatus(int clientId, int orderId) {
+        Order o = Storage.getOrder(orderId, clientId);
+        return o.getDeliveryState();
+    }
+
+    public static String getManufacturingState(int clientId, int orderId){
+        Order o = Storage.getOrder(orderId, clientId);
+        return o.getManufacturingState();
     }
 
     public static int getNbOfUsers(){
@@ -261,5 +254,19 @@ public class Storage {
             sum += stock.get(b);
         }
         return sum;
+    }
+
+    public static String getAllOrders() {
+        int compt = 1;
+        String ret = "{\n";
+        for (User u : orders.keySet()){
+            Iterator it = orders.get(u).iterator();
+            while(it.hasNext()){
+                Order o = (Order)it.next();
+                ret += "\"order"+ compt++ +"\"" + ":" + "\"/order/"+u.getId()+"/"+o.getId()+"\"\n";
+            }
+        }
+        ret += "}";
+        return ret;
     }
 }
