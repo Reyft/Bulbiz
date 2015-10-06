@@ -23,14 +23,21 @@ public class Storage {
         }
     }
 
+    /**
+     *
+     * @param u : identifiant (id) du client
+     * @param name
+     */
     public static void editUser(User u, String name){
         if (users.contains(u)){
             users.get(users.indexOf(u)).setName(name);
         }
+        //TODO le parametre u (User) doit être un int (id du client).
     }
 
     public static void delUser(User u){
         users.remove(u);
+        //TODO le parametre u (User) doit être un int (id du client).
     }
 
     public static void addInStock(Bulb b, int number){
@@ -53,7 +60,7 @@ public class Storage {
      * id user -> id commande impayé / -1 si rien
      *
      */
-    public static int getOrderInProgress(int userId){
+    public static int getStateOrderInProgress(int userId){
         Set cles = orders.keySet();
         Iterator it = cles.iterator();
         while (it.hasNext()){
@@ -69,6 +76,28 @@ public class Storage {
             }
         }
         return -2;
+    }
+
+    /**
+     * id user -> id commande impayé / -1 si rien
+     *
+     */
+    public static Order getOrderInProgress(int userId){
+        Set cles = orders.keySet();
+        Iterator it = cles.iterator();
+        while (it.hasNext()){
+            User u = (User)it.next();
+            if (u.getId() == userId){
+                Stack<Order> list = orders.get(u);
+                Order last = list.peek();
+                if (!last.isBillingStatus()){
+                    return last;
+                } else {
+                    break;
+                }
+            }
+        }
+        return null;
     }
 
     /**
@@ -164,5 +193,48 @@ public class Storage {
         } else {
             return null;
         }
+    }
+
+    /**
+     * Get an ORDER
+     * @param orderId : Order Id
+     * @param clientId : Client Id
+     * @return Order o
+     */
+    public static Order getOrder(int orderId, int clientId) {
+        return null;
+    }
+    //TODO Complete the action
+
+    /**
+     * Return list of order for a specific client
+     * @param clientId : client identifiant to select order
+     * @return a list of order
+     */
+    public static List<Order> getListOrder(int clientId) {
+        return null;
+        //TODO Complete the action
+    }
+
+    /**
+     * Add an address for the last order (order in final progress)
+     * @param clientId : client ID for check the order
+     * @param address : the address of delivery
+     * @return 0 if everything is ok, -1 if the order doesn't exists, -2 if the client doesn't exists.
+     */
+    public static int addAddress(int clientId, String address) {
+        return 0;
+        //TODO Complete the action
+    }
+
+    /**
+     * Return the status of the orderId
+     * @param clientId
+     * @param orderId
+     * @return
+     */
+    public static String getStatus(int clientId, int orderId) {
+        return null;
+        //TODO Complete the action
     }
 }

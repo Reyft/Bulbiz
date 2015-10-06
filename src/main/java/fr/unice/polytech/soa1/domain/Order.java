@@ -25,10 +25,9 @@ public class Order {
         billingStatus = false;
     }
 
-    public Order(HashMap<Bulb, Integer> list, String address){
+    public Order(HashMap<Bulb, Integer> list){
         this();
         this.list = list;
-        this.address = address;
         Set cles = list.keySet();
         Iterator it = cles.iterator();
         while (it.hasNext()){
@@ -36,6 +35,11 @@ public class Order {
             int coef = list.get(cle);
             price += coef * cle.getPrice();
         }
+    }
+
+    public Order(Bulb b, Integer i){
+        this();
+        this.list.put(b, i);
     }
 
     public static int getCompt() {
