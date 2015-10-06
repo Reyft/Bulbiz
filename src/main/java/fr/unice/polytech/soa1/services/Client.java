@@ -18,6 +18,7 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class Client {
 
+    @Path("/")
     @POST
     public Response createAccount(@QueryParam("name")    String name){
         Storage.addUser(new User(name));
