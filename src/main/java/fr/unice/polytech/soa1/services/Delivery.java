@@ -11,12 +11,11 @@ import javax.ws.rs.core.Response;
 /**
  * Created by remy on 21/09/15.
  */
-
 @Path("/delivery")
 @Produces(MediaType.APPLICATION_JSON)
 public class Delivery {
 
-    @Path("/client/{clientId}")
+    @Path("/destination/client/{clientId}")
     @POST
     public Response addADestination(@PathParam("clientId")        String userId,
                                     @QueryParam("address")  String address){
@@ -33,11 +32,19 @@ public class Delivery {
         return Response.ok().build();
     }
 
-    @Path("/{orderId}/client/{clientId}")
+    @Path("/state/order/{orderId}/client/{clientId}")
     @GET
     public Response followDelivery(@PathParam("orderId")        String orderId,
                                    @PathParam("clientId")       String clientId){
-        String status = Storage.getStatus(Integer.parseInt(clientId), Integer.parseInt(orderId));
+        String status = Storage.getDeliveryStatus(Integer.parseInt(clientId), Integer.parseInt(orderId));
+        return Response.ok().entity("{status :" + status + "}").build();
+    }
+
+    @Path("/manufacturing/order/{orderId}/client/{clientId}")
+    @GET
+    public Response followManufacturing(@PathParam("orderId") String orderId,
+                                        @PathParam("clientId") String userId){
+        String status = Storage.getManufacturingState(Integer.parseInt(userId), Integer.parseInt(orderId));
         return Response.ok().entity("{status :" + status + "}").build();
     }
 }

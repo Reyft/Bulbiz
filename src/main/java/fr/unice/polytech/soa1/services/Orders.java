@@ -22,6 +22,7 @@ public class Orders {
         int orderId = Storage.getIdOrderInProgress(Integer.parseInt(clientId));
         if(orderId == -1) {
             Order o = new Order(new Bulb(color,form),Integer.parseInt(qte));
+            o.processThePrice();
             Storage.addAnOrder(Integer.parseInt(clientId), o);
         } else {
             Storage.addBulbToOrder(Integer.parseInt(clientId), new Bulb(color,form), Integer.parseInt(qte));
@@ -73,37 +74,4 @@ public class Orders {
         Order order = Storage.getOrder(Integer.parseInt(orderId), Integer.parseInt(clientId));
         return Response.ok().entity(order.getList().toString()).build();
     }
-
-    /*@POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response createBulb(String name, Color color){
-        if(Storage.read(name) != null) {
-            return Response.status(Response.Status.CONFLICT)
-                    .entity("\"Existing name " + name + "\"")
-                    .build();
-        }
-        Storage.create(name, color);
-        return Response.ok().build();
-    }*/
-
-
-    /*@GET
-    public Response getMyBubl(){
-        Collection<Bulb> coll = Storage.findAll();
-        JSONArray result = new JSONArray();
-        for (Bulb b : coll){
-            result.put(b);
-        }
-        return Response.ok().entity(result.toString()).build();
-    }*/
-
-    /*@Path("/search/{name}")
-    @GET
-    public Response searchBulb(@PathParam("name") String name){
-        if (Storage.read(name) == null){
-            Response.status(Response.Status.NOT_FOUND).build();
-        }
-        String value = Storage.read(name).run();
-        return Response.ok().entity("\""+value+"\"").build();
-    }*/
 }
