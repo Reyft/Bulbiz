@@ -9,14 +9,15 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
+import java.util.List;
 
 
 @Produces(MediaType.APPLICATION_JSON)
 public class Orders {
 
-    @Path("/order/{id}/")
+    @Path("/cart/client/{id}/")
     @POST
-    public Response addToOrder(@QueryParam("form")    String form,
+    public Response addToCart(@QueryParam("form")    String form,
                                    @QueryParam("color")   String color,
                                    @QueryParam("quantity")   String qte,
                                    @PathParam("id")       String clientId) {
@@ -36,9 +37,9 @@ public class Orders {
         return Response.ok().build();
     }
 
-    @Path("/order/{id}/")
+    @Path("/cart/client/{id}/")
     @GET
-    public Response getOrderInProgress(@PathParam("id")       String clientId) {
+    public Response getCart(@PathParam("id")       String clientId) {
 
         Order lastOrder = Storage.getOrderInProgress(Integer.parseInt(clientId));
         int orderId = Storage.getStateOrderInProgress(Integer.parseInt(clientId));
@@ -54,9 +55,9 @@ public class Orders {
         return Response.ok().entity(lastOrder.getList().toString()).build();
     }
 
-    @Path("/order/{id}/")
+    @Path("/cart/client/{id}/")
     @DELETE
-    public Response deleteOrder(@PathParam("id")       String clientId) {
+    public Response deleteCart(@PathParam("id")       String clientId) {
 
         int orderId = Storage.getStateOrderInProgress(Integer.parseInt(clientId));
         if(orderId == -2) {
@@ -70,6 +71,15 @@ public class Orders {
         }
         Storage.deleteInProgress(Integer.parseInt(clientId));
         return Response.ok().build();
+    }
+
+    @Path("/order/{orderId}/client/{clientId}/")
+    @GET
+    public Response getSpecificOrder(@PathParam("orderId")       String orderId,
+                             @PathParam("clientId")       String clientId) {
+
+        Order order = Storage.getOrder(Integer.parseInt(orderId), Integer.parseInt(clientId));
+        return Response.ok().entity(order.getList().toString()).build();
     }
 
     /*@POST
