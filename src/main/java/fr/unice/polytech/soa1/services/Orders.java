@@ -35,7 +35,7 @@ public class Orders {
             Order o = new Order(new Bulb(color,form),Integer.parseInt(qte));
             Storage.addAnOrder(Integer.parseInt(clientId), o);
         } else {
-            Storage.addBulbToOrder(Integer.parseInt(clientId), new Bulb(color,form), Integer.parseInt(qte))
+            Storage.addBulbToOrder(Integer.parseInt(clientId), new Bulb(color,form), Integer.parseInt(qte));
         }
         return Response.ok().build();
     }
