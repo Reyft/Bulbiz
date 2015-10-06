@@ -4,11 +4,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.unice.polytech.soa1.domain.Order;
 import fr.unice.polytech.soa1.domain.Storage;
-import org.json.JSONArray;
+
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 /**
  * Created by remy on 01/10/15.
@@ -41,12 +42,13 @@ public class Display {
                                      @PathParam("orderId") String orderId){
 
         Order o = Storage.getOrder(Integer.parseInt(orderId), Integer.parseInt(userId));
+        if (o == null) return Response.status(Status.NOT_FOUND).build();
         ObjectMapper mapper = new ObjectMapper();
         String answer;
         try {
             answer = mapper.writeValueAsString(o);
         } catch (JsonProcessingException json){
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+            return Response.status(Status.INTERNAL_SERVER_ERROR).build();
         }
         return Response.ok().entity(answer).build();
     }
