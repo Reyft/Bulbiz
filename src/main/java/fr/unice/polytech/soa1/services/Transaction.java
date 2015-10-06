@@ -1,9 +1,12 @@
 package fr.unice.polytech.soa1.services;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.unice.polytech.soa1.domain.Order;
+import fr.unice.polytech.soa1.domain.Payement;
+import fr.unice.polytech.soa1.domain.Storage;
+
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;

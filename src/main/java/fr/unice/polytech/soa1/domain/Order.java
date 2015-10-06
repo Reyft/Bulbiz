@@ -1,9 +1,7 @@
 package fr.unice.polytech.soa1.domain;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by remy on 01/10/15.
@@ -12,7 +10,7 @@ public class Order {
     private static int compt = 1;
 
     private int id;
-    private Map<Bulb, Integer> list = new HashMap();
+    private Map<Bulb, Integer> list = new HashMap<Bulb, Integer>();
     private double price;
     private String address;
     private boolean billingStatus;
@@ -28,10 +26,6 @@ public class Order {
     public Order(Bulb b, Integer i){
         this();
         this.list.put(b, i);
-    }
-
-    public static int getCompt() {
-        return compt;
     }
 
     public static void setCompt(int compt) {

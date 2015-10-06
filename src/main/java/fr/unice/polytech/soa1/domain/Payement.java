@@ -1,8 +1,5 @@
 package fr.unice.polytech.soa1.domain;
 
-/**
- * Created by remy on 06/10/15.
- */
 public class Payement {
 
     public static boolean paye(String userId, String orderId, String numero, String date, String sc) {
