@@ -23,6 +23,15 @@ public class Storage {
         }
     }
 
+    public static User getUser(int userId){
+        for (User u : users){
+            if (u.getId() == userId){
+                return u;
+            }
+        }
+        return null;
+    }
+
     /**
      *
      * @param userId : identifiant (id) du client

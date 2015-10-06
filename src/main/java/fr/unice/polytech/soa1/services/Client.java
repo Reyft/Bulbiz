@@ -3,6 +3,7 @@ package fr.unice.polytech.soa1.services;
 import fr.unice.polytech.soa1.domain.Order;
 import fr.unice.polytech.soa1.domain.Storage;
 import fr.unice.polytech.soa1.domain.User;
+import org.json.JSONArray;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -21,6 +22,19 @@ public class Client {
     public Response createAccount(@QueryParam("name")    String name){
         Storage.addUser(new User(name));
         return Response.ok().build();
+    }
+
+    @Path("/{id}")
+    @GET
+    public Response checkAccount(@PathParam("id") String userId){
+        User u = Storage.getUser(Integer.parseInt(userId));
+        if (u == null){
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        JSONArray json = new JSONArray();
+        json.put(u.getId());
+        json.put(u.getName());
+        return Response.ok().entity(json.toString(2)).build();
     }
 
     @Path("/{id}")
