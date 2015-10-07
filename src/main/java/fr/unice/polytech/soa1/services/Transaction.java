@@ -20,7 +20,7 @@ public class Transaction {
 
     @Path("/price/client/{userId}")
     @GET
-    private Response showOrder(@PathParam("userId") String userId){
+    public Response showOrder(@PathParam("userId") String userId){
         Order o = Storage.getOrderInProgress(Integer.parseInt(userId));
         if (o != null) {
             ObjectMapper mapper = new ObjectMapper();
@@ -36,7 +36,7 @@ public class Transaction {
 
     @Path("/pay/client/{userId}/order/{orderId}")
     @POST
-    private Response pay(@PathParam("userId") String userId,
+    public Response pay(@PathParam("userId") String userId,
                          @PathParam("orderId") String orderId,
                          @QueryParam("numero") String numero,
                          @QueryParam("date") String date,
