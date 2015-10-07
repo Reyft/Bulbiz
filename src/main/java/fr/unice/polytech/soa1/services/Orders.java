@@ -53,8 +53,8 @@ public class Orders {
         Map<Bulb, Integer> listOrder = lastOrder.getList();
         String result = "{";
         for (Bulb mapKey : listOrder.keySet()) {
-           result+="[\"color\" : \""+mapKey.getColor().toString()+"\",";
-           result+="\"form\" : \""+mapKey.getForm().toString()+"\",";
+           result+="[\"color\" : \""+mapKey.getColor()+"\",";
+           result+="\"form\" : \""+mapKey.getForm()+"\",";
            result+="\"quantity\" : "+listOrder.get(mapKey)+"],";
         }
 
