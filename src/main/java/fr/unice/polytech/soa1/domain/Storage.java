@@ -263,7 +263,7 @@ public class Storage {
             Iterator it = orders.get(u).iterator();
             while(it.hasNext()){
                 Order o = (Order)it.next();
-                ret += "\"order"+ compt++ +"\"" + ":" + "\"/order/"+u.getId()+"/"+o.getId()+"\",\n";
+                ret += "\"order"+ compt++ +"\"" + ":" + "\"/display/order/"+u.getId()+"/"+o.getId()+"\",\n";
             }
         }
         ret = ret.substring(0,ret.length()-2);
