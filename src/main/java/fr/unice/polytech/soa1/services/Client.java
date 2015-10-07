@@ -36,15 +36,15 @@ public class Client {
     @GET
     public Response checkAccount(@PathParam("id") String userId){
         User u = Storage.getUser(Integer.parseInt(userId));
-        if (u == null){
-            return Response.status(Response.Status.NOT_FOUND).build();
+        if (u != null) {
+            try {
+                String answer = mapper.writeValueAsString(u);
+                return Response.ok().entity(answer).build();
+            } catch (JsonProcessingException e) {
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+            }
         }
-        try {
-            String answer = mapper.writeValueAsString(u);
-            return Response.ok().entity(u).build();
-        } catch (JsonProcessingException e){
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-        }
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 
     @Path("/{id}")
