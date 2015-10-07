@@ -5,10 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.unice.polytech.soa1.domain.Order;
 import fr.unice.polytech.soa1.domain.Storage;
 import fr.unice.polytech.soa1.domain.User;
-import org.json.JSONArray;
-
 import javax.ws.rs.*;
-import javax.ws.rs.container.ResourceContext;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -84,9 +81,6 @@ public class Client {
             result += o.getAddress() + ", More Details : /orders/"+o.getId()+"/client/"+clientId+"/ ],";
         }
         result+= "}";
-        if (result.equals("")){
-            result = "{}";
-        }
         return Response.ok().entity(result).build();
     }
 }
