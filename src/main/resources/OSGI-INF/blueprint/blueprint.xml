@@ -30,6 +30,7 @@ http://cxf.apache.org/blueprint/jaxrs http://cxf.apache.org/schemas/blueprint/ja
             <ref component-id="delivery" />
             <ref component-id="display" />
             <ref component-id="management" />
+            <ref component-id="transaction" />
         </jaxrs:serviceBeans>
     </jaxrs:server>
 
@@ -38,5 +39,6 @@ http://cxf.apache.org/blueprint/jaxrs http://cxf.apache.org/schemas/blueprint/ja
     <bean id="delivery" class="fr.unice.polytech.soa1.services.Delivery" />
     <bean id="display" class="fr.unice.polytech.soa1.services.Display" />
     <bean id="management" class="fr.unice.polytech.soa1.services.Stock" />
+    <bean id="transaction" class="fr.unice.polytech.soa1.services.Transaction" />
 
 </blueprint>
