@@ -1,5 +1,7 @@
 package fr.unice.polytech.soa1.services;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.unice.polytech.soa1.domain.Order;
 import fr.unice.polytech.soa1.domain.Storage;
 import fr.unice.polytech.soa1.domain.User;
@@ -21,8 +23,15 @@ public class Client {
     @Path("/")
     @POST
     public Response createAccount(@QueryParam("name")    String name){
-        Storage.addUser(new User(name));
-        return Response.ok().build();
+        User u = new User(name);
+        Storage.addUser(u);
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            String answer = mapper.writeValueAsString(u);
+            return Response.ok().entity(answer).build();
+        } catch (JsonProcessingException e){
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @Path("/{id}")
