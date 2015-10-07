@@ -32,13 +32,14 @@ public class Storage {
      * @param userId : identifiant (id) du client
      * @param name
      */
-    public static void editUser(int userId, String name){
-       for (User u : users){
-           if (u.getId() == userId){
+    public static User editUser(int userId, String name){
+       for (User u : users) {
+           if (u.getId() == userId) {
                u.setName(name);
-               break;
+               return u;
            }
        }
+       return null;
     }
 
     public static void delUser(int userId){

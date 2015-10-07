@@ -8,6 +8,7 @@ import fr.unice.polytech.soa1.domain.User;
 import org.json.JSONArray;
 
 import javax.ws.rs.*;
+import javax.ws.rs.container.ResourceContext;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -19,6 +20,7 @@ import java.util.List;
 @Path("/client")
 @Produces(MediaType.APPLICATION_JSON)
 public class Client {
+    private ObjectMapper mapper = new ObjectMapper();
 
     @Path("/")
     @POST
@@ -26,7 +28,6 @@ public class Client {
         User u = new User(name);
         Storage.addUser(u);
         try {
-            ObjectMapper mapper = new ObjectMapper();
             String answer = mapper.writeValueAsString(u);
             return Response.ok().entity(answer).build();
         } catch (JsonProcessingException e){
@@ -41,18 +42,28 @@ public class Client {
         if (u == null){
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        JSONArray json = new JSONArray();
-        json.put(u.getId());
-        json.put(u.getName());
-        return Response.ok().entity(json.toString(2)).build();
+        try {
+            String answer = mapper.writeValueAsString(u);
+            return Response.ok().entity(u).build();
+        } catch (JsonProcessingException e){
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @Path("/{id}")
     @PUT
     public Response setAccount(@PathParam("id")       String clientId,
                                @QueryParam("name")    String name){
-        Storage.editUser(Integer.parseInt(clientId), name);
-        return Response.ok().build();
+        User u = Storage.editUser(Integer.parseInt(clientId), name);
+        if (u != null) {
+            try {
+                String anwser = mapper.writeValueAsString(u);
+                return Response.ok().entity(anwser).build();
+            } catch (JsonProcessingException e) {
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+            }
+        }
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 
     @Path("/{id}")
