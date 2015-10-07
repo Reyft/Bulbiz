@@ -9,6 +9,7 @@ public class Payement {
             Integer.parseInt(numero);
             Integer.parseInt(sc);
             date.split("/");
+            o.setBillingStatus(true);
             return true;
         } catch (Exception e){
             return false;
