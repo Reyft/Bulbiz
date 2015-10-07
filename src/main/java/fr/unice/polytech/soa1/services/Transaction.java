@@ -42,7 +42,7 @@ public class Transaction {
                          @QueryParam("date") String date,
                          @QueryParam("sc") String sc){
         if (Payement.paye(userId, orderId, numero, date, sc)){
-            Response.ok().entity("\"Payement done\"").build();
+            return Response.ok().entity("{\n\"Payement\" : \"done\"\n}").build();
         }
         return Response.status(Status.NOT_ACCEPTABLE).build();
     }
