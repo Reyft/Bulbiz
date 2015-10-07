@@ -12,9 +12,6 @@ import javax.ws.rs.core.Response;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by remy on 06/10/15.
- */
 @Path("/stock")
 @Produces(MediaType.APPLICATION_JSON)
 public class Stock {

@@ -3,10 +3,13 @@ package fr.unice.polytech.soa1.services;
 import fr.unice.polytech.soa1.domain.Bulb;
 import fr.unice.polytech.soa1.domain.Order;
 import fr.unice.polytech.soa1.domain.Storage;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Map;
 
 @Path("/cart")
 @Produces(MediaType.APPLICATION_JSON)
@@ -27,14 +30,15 @@ public class Orders {
         } else {
             Storage.addBulbToOrder(Integer.parseInt(clientId), new Bulb(color,form), Integer.parseInt(qte));
         }
-        return Response.ok().build();
+
+        return Response.ok().entity("{\"id\" : " + Storage.getIdOrderInProgress(Integer.parseInt(clientId)) + "}").build();
     }
 
     @Path("/client/{id}/")
     @GET
     public Response getCart(@PathParam("id")       String clientId) {
 
-        Order lastOrder = Storage.getOrderInProgress(Integer.parseInt(clientId));
+
         int orderId = Storage.getIdOrderInProgress(Integer.parseInt(clientId));
         if(orderId == -2) {
             return Response.status(Response.Status.CONFLICT)
@@ -45,7 +49,17 @@ public class Orders {
                     .entity("\"No Order in Progress\"")
                     .build();
         }
-        return Response.ok().entity(lastOrder.getList().toString()).build();
+        Order lastOrder = Storage.getOrderInProgress(Integer.parseInt(clientId));
+        Map<Bulb, Integer> listOrder = lastOrder.getList();
+        String result = "{";
+        for (Bulb mapKey : listOrder.keySet()) {
+           result+="[\"color\" : \""+mapKey.getColor().toString()+"\",";
+           result+="\"form\" : \""+mapKey.getForm().toString()+"\",";
+           result+="\"quantity\" : "+listOrder.get(mapKey)+"],";
+        }
+
+        result += "}";
+        return Response.ok().entity(result).build();
     }
 
     @Path("/client/{id}/")
